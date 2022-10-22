@@ -12,7 +12,7 @@ import (
 )
 
 type MyplatformV1alphaclient struct {
-	client *rest.Interface
+	client rest.Interface
 }
 
 type MyplatformV1alphainterface interface {
@@ -31,7 +31,7 @@ func NewforConfig(c *rest.Config) (*MyplatformV1alphaclient, error) {
 		os.Exit(1)
 	}
 
-	return &myplatformclientset, nil
+	return &MyplatformV1alphaclient{client: myplatformclientset}, nil
 }
 
 func (mpl *MyplatformV1alphaclient) Myplatforms(namespace string) MyplatformInterface {
