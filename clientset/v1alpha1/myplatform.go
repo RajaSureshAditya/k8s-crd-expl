@@ -1,6 +1,8 @@
 package v1alpha1
 
 import (
+	"context"
+
 	"github.com/RajaSureshAditya/k8s-crd-expl/apis/types/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes/scheme"
@@ -17,6 +19,7 @@ type MyplatformInterface interface {
 type MyplatformClient struct {
 	restClient rest.Interface
 	ns         string
+	ctx        context.Context
 }
 
 func (c *MyplatformClient) List(opts metav1.ListOptions) (*v1alpha1.MyplatformList, error) {
@@ -26,7 +29,7 @@ func (c *MyplatformClient) List(opts metav1.ListOptions) (*v1alpha1.MyplatformLi
 		Namespace(c.ns).
 		Resource("myplatforms").
 		VersionedParams(&opts, scheme.ParameterCodec).
-		Do().
+		Do(c.ctx).
 		Into(&result)
 
 	return &result, err
@@ -40,7 +43,7 @@ func (c *MyplatformClient) Get(name string, opts metav1.GetOptions) (*v1alpha1.M
 		Resource("myplatforms").
 		Name(name).
 		VersionedParams(&opts, scheme.ParameterCodec).
-		Do().
+		Do(c.ctx).
 		Into(&result)
 
 	return &result, err
@@ -53,7 +56,7 @@ func (c *MyplatformClient) Create(myplatform *v1alpha1.Myplatform) (*v1alpha1.My
 		Namespace(c.ns).
 		Resource("myplatforms").
 		Body(myplatform).
-		Do().
+		Do(c.ctx).
 		Into(&result)
 
 	return &result, err
