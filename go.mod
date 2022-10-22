@@ -1,6 +1,6 @@
 module github.com/RajaSureshAditya/k8s-crds-expl
 
-go 1.19
+go 1.18
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
