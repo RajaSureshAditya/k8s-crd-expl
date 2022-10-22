@@ -34,7 +34,7 @@ func Get_k8s_config() (*rest.Config, error) {
 		os.Exit(1)
 	}
 	v1alpha1.AddToScheme(scheme.Scheme)
-	return &kubeConfig_cfg, nil
+	return kubeConfig_cfg, nil
 }
 
 func main() {
@@ -43,12 +43,13 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	myprojectsList, err := clientset.Myplatforms("default").List(metav1.ListOptions{})
+	myprojectsList, err := clientset.Myplatforms("crd-ns").List(metav1.ListOptions{})
 	if err != nil {
 		panic(err)
 	}
-	for _, mypro := range myprojectsList {
-		fmt.Println(mypro)
-	}
+	fmt.Println(myprojectsList)
+	// for _, mypro := range myprojectsList {
+	// 	fmt.Println(mypro)
+	// }
 
 }

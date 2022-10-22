@@ -2,6 +2,7 @@ package v1alpha1
 
 import (
 	"context"
+	"time"
 
 	"github.com/RajaSureshAditya/k8s-crd-expl/apis/types/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -19,17 +20,18 @@ type MyplatformInterface interface {
 type MyplatformClient struct {
 	restClient rest.Interface
 	ns         string
-	ctx        context.Context
 }
 
 func (c *MyplatformClient) List(opts metav1.ListOptions) (*v1alpha1.MyplatformList, error) {
 	result := v1alpha1.MyplatformList{}
+	ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(300*time.Second))
+	defer cancel()
 	err := c.restClient.
 		Get().
 		Namespace(c.ns).
 		Resource("myplatforms").
 		VersionedParams(&opts, scheme.ParameterCodec).
-		Do(c.ctx).
+		Do(ctx).
 		Into(&result)
 
 	return &result, err
@@ -37,13 +39,15 @@ func (c *MyplatformClient) List(opts metav1.ListOptions) (*v1alpha1.MyplatformLi
 
 func (c *MyplatformClient) Get(name string, opts metav1.GetOptions) (*v1alpha1.Myplatform, error) {
 	result := v1alpha1.Myplatform{}
+	ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(300*time.Second))
+	defer cancel()
 	err := c.restClient.
 		Get().
 		Namespace(c.ns).
 		Resource("myplatforms").
 		Name(name).
 		VersionedParams(&opts, scheme.ParameterCodec).
-		Do(c.ctx).
+		Do(ctx).
 		Into(&result)
 
 	return &result, err
@@ -51,12 +55,14 @@ func (c *MyplatformClient) Get(name string, opts metav1.GetOptions) (*v1alpha1.M
 
 func (c *MyplatformClient) Create(myplatform *v1alpha1.Myplatform) (*v1alpha1.Myplatform, error) {
 	result := v1alpha1.Myplatform{}
+	ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(300*time.Second))
+	defer cancel()
 	err := c.restClient.
 		Post().
 		Namespace(c.ns).
 		Resource("myplatforms").
 		Body(myplatform).
-		Do(c.ctx).
+		Do(ctx).
 		Into(&result)
 
 	return &result, err

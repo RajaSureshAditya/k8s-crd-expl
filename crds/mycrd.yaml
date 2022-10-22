@@ -1,0 +1,12 @@
+apiVersion: contoso.com/v1alpha1
+kind: MyPlatform
+metadata:
+ name: test-dotnet-app
+ namespace: crd-ns
+spec:
+ appId: testdotnetapp
+ language: csharp
+ os: linux
+ instanceSize: small
+ environmentType: "dev"
+ replicas: 3
