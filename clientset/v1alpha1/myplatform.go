@@ -3,19 +3,19 @@ package v1alpha1
 import (
 	"github.com/RajaSureshAditya/k8s-crd-expl/apis/types/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/kubernetes/scheme"
+	"k8s.io/client-go/rest"
 )
 
 type MyplatformInterface interface {
-	List(opts metav1.ListOptions) (*v1alpha1.ProjectList, error)
+	List(opts metav1.ListOptions) (*v1alpha1.MyplatformList, error)
 	Get(name string, options metav1.GetOptions) (*v1alpha1.Myplatform, error)
-	Create(*v1alpha1.Project) (*v1alpha1.Project, error)
+	Create(*v1alpha1.Myplatform) (*v1alpha1.Myplatform, error)
 	// Watch(opts metav1.ListOptions) (watch.Interface, error)
 }
 
 type MyplatformClient struct {
-	restClient dynamic.Interface
+	restClient rest.Interface
 	ns         string
 }
 
