@@ -6,7 +6,6 @@ import (
 
 	v1alpha1 "github.com/RajaSureshAditya/k8s-crd-expl/apis/types/v1alpha1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/apimachinery/pkg/runtime/serializer"
 	"k8s.io/client-go/kubernetes/scheme"
 	"k8s.io/client-go/rest"
 )
@@ -23,9 +22,11 @@ func NewforConfig(c *rest.Config) (*MyplatformV1alphaclient, error) {
 	kubeConfig_cfg := *c
 	kubeConfig_cfg.ContentConfig.GroupVersion = &schema.GroupVersion{Group: v1alpha1.GroupName, Version: v1alpha1.GroupVersion}
 	kubeConfig_cfg.APIPath = "/apis"
-	kubeConfig_cfg.NegotiatedSerializer = serializer.NewCodecFactory(scheme.Scheme)
+	// kubeConfig_cfg.NegotiatedSerializer = serializer.NewCodecFactory(scheme.Scheme)
+	kubeConfig_cfg.NegotiatedSerializer = scheme.Codecs.WithoutConversion()
 	kubeConfig_cfg.UserAgent = rest.DefaultKubernetesUserAgent()
-	myplatformclientset, err := rest.RESTClientFor(&kubeConfig_cfg)
+	// myplatformclientset, err := rest.RESTClientFor(&kubeConfig_cfg)
+	myplatformclientset, err := rest.UnversionedRESTClientFor(&kubeConfig_cfg)
 	if err != nil {
 		fmt.Printf("error creating dynamic client: %v\n", err)
 		os.Exit(1)

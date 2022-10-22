@@ -29,7 +29,7 @@ func (c *MyplatformClient) List(opts metav1.ListOptions) (*v1alpha1.MyplatformLi
 	err := c.restClient.
 		Get().
 		Namespace(c.ns).
-		Resource("myplatforms").
+		Resource("myplatform").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Do(ctx).
 		Into(&result)
