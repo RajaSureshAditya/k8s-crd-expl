@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	v1alpha1 "github.com/RajaSureshAditya/k8s-crds-expl/apis/types/v1alpha1"
+	v1alpha1 "github.com/RajaSureshAditya/k8s-crd-expl/apis/types/v1alpha1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/runtime/serializer"
 	"k8s.io/client-go/dynamic"

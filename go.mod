@@ -1,4 +1,4 @@
-module github.com/RajaSureshAditya/k8s-crds-expl
+module github.com/RajaSureshAditya/k8s-crd-expl
 
 go 1.18
 

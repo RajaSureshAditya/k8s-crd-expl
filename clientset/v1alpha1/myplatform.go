@@ -1,7 +1,7 @@
 package v1alpha1
 
 import (
-	"github.com/RajaSureshAditya/k8s-crds-expl/api/types/v1alpha1"
+	"github.com/RajaSureshAditya/k8s-crd-expl/api/types/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/kubernetes/scheme"
