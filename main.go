@@ -7,8 +7,8 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"github.com/RajaSureshAditya/K8s-crds-expl/apis/types/v1alpha1"
 	clientV1alpha1 "github.com/RajaSureshAditya/K8s-crds-expl/clientset/v1alpha1"
-	"github.com/rajasureshaditya/go-workspace/K8s-crds-expl/apis/types/v1alpha1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/kubernetes/scheme"
 	"k8s.io/client-go/rest"
