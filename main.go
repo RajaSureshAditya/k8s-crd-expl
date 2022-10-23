@@ -43,7 +43,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	myprojectsList, err := clientset.Myplatforms("default").List(metav1.ListOptions{})
+	myprojectsList, err := clientset.MyProjects("default").List(metav1.ListOptions{})
 	if err != nil {
 		panic(err)
 	}

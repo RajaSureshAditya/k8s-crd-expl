@@ -4,10 +4,10 @@ import "k8s.io/apimachinery/pkg/runtime"
 
 // DeepCopyInto copies all properties of this object into another object of the
 // same type that is provided as a pointer.
-func (in *Myplatform) DeepCopyInto(out *Myplatform) {
+func (in *MyProject) DeepCopyInto(out *MyProject) {
 	out.TypeMeta = in.TypeMeta
 	out.ObjectMeta = in.ObjectMeta
-	out.Spec = MyplatformSpec{
+	out.Spec = MyProjectSpec{
 		AppId:        in.Spec.AppId,
 		Language:     in.Spec.Language,
 		Os:           in.Spec.Os,
@@ -16,21 +16,21 @@ func (in *Myplatform) DeepCopyInto(out *Myplatform) {
 }
 
 // DeepCopyObject returns a generically typed copy of an object
-func (in *Myplatform) DeepCopyObject() runtime.Object {
-	out := Myplatform{}
+func (in *MyProject) DeepCopyObject() runtime.Object {
+	out := MyProject{}
 	in.DeepCopyInto(&out)
 
 	return &out
 }
 
 // DeepCopyObject returns a generically typed copy of an object
-func (in *MyplatformList) DeepCopyObject() runtime.Object {
-	out := MyplatformList{}
+func (in *MyProjectList) DeepCopyObject() runtime.Object {
+	out := MyProjectList{}
 	out.TypeMeta = in.TypeMeta
 	out.ListMeta = in.ListMeta
 
 	if in.Items != nil {
-		out.Items = make([]Myplatform, len(in.Items))
+		out.Items = make([]MyProject, len(in.Items))
 		for i := range in.Items {
 			in.Items[i].DeepCopyInto(&out.Items[i])
 		}

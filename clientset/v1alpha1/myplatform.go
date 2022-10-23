@@ -10,26 +10,26 @@ import (
 	"k8s.io/client-go/rest"
 )
 
-type MyplatformInterface interface {
-	List(opts metav1.ListOptions) (*v1alpha1.MyplatformList, error)
-	Get(name string, options metav1.GetOptions) (*v1alpha1.Myplatform, error)
-	Create(*v1alpha1.Myplatform) (*v1alpha1.Myplatform, error)
+type MyProjectInterface interface {
+	List(opts metav1.ListOptions) (*v1alpha1.MyProjectList, error)
+	Get(name string, options metav1.GetOptions) (*v1alpha1.MyProject, error)
+	Create(*v1alpha1.MyProject) (*v1alpha1.MyProject, error)
 	// Watch(opts metav1.ListOptions) (watch.Interface, error)
 }
 
-type MyplatformClient struct {
+type MyProjectClient struct {
 	restClient rest.Interface
 	ns         string
 }
 
-func (c *MyplatformClient) List(opts metav1.ListOptions) (*v1alpha1.MyplatformList, error) {
-	result := v1alpha1.MyplatformList{}
+func (c *MyProjectClient) List(opts metav1.ListOptions) (*v1alpha1.MyProjectList, error) {
+	result := v1alpha1.MyProjectList{}
 	ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(300*time.Second))
 	defer cancel()
 	err := c.restClient.
 		Get().
 		Namespace(c.ns).
-		Resource("myplatform").
+		Resource("myprojects").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Do(ctx).
 		Into(&result)
@@ -37,14 +37,14 @@ func (c *MyplatformClient) List(opts metav1.ListOptions) (*v1alpha1.MyplatformLi
 	return &result, err
 }
 
-func (c *MyplatformClient) Get(name string, opts metav1.GetOptions) (*v1alpha1.Myplatform, error) {
-	result := v1alpha1.Myplatform{}
+func (c *MyProjectClient) Get(name string, opts metav1.GetOptions) (*v1alpha1.MyProject, error) {
+	result := v1alpha1.MyProject{}
 	ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(300*time.Second))
 	defer cancel()
 	err := c.restClient.
 		Get().
 		Namespace(c.ns).
-		Resource("myplatforms").
+		Resource("myprojects").
 		Name(name).
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Do(ctx).
@@ -53,15 +53,15 @@ func (c *MyplatformClient) Get(name string, opts metav1.GetOptions) (*v1alpha1.M
 	return &result, err
 }
 
-func (c *MyplatformClient) Create(myplatform *v1alpha1.Myplatform) (*v1alpha1.Myplatform, error) {
-	result := v1alpha1.Myplatform{}
+func (c *MyProjectClient) Create(MyProject *v1alpha1.MyProject) (*v1alpha1.MyProject, error) {
+	result := v1alpha1.MyProject{}
 	ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(300*time.Second))
 	defer cancel()
 	err := c.restClient.
 		Post().
 		Namespace(c.ns).
-		Resource("myplatforms").
-		Body(myplatform).
+		Resource("myprojects").
+		Body(MyProject).
 		Do(ctx).
 		Into(&result)
 

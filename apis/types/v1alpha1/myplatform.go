@@ -3,26 +3,26 @@ package v1alpha1
 import meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-type Myplatform struct {
+type MyProject struct {
 	meta_v1.TypeMeta   `json:",inline"`
 	meta_v1.ObjectMeta `json:"metadata"`
-	Spec               MyplatformSpec   `json:"spec"`
-	Status             MyplatformStatus `json:"status,omitempty"`
+	Spec               MyProjectSpec   `json:"spec"`
+	Status             MyProjectStatus `json:"status,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-type MyplatformList struct {
+type MyProjectList struct {
 	meta_v1.TypeMeta `json:",inline"`
 	meta_v1.ListMeta `json:"metadata"`
-	Items            []Myplatform `json:"items"`
+	Items            []MyProject `json:"items"`
 }
-type MyplatformSpec struct {
+type MyProjectSpec struct {
 	AppId        string `json:"appId"`
 	Language     string `json:"language"`
 	Os           string `json:"os"`
 	InstanceSize string `json:"instanceSize"`
 }
-type MyplatformStatus struct {
+type MyProjectStatus struct {
 	State   string `json:"state,omitempty"`
 	Message string `json:"message,omitempty"`
 }
