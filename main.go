@@ -9,17 +9,16 @@ import (
 
 	"github.com/RajaSureshAditya/k8s-crd-expl/apis/types/v1alpha1"
 	clientV1alpha1 "github.com/RajaSureshAditya/k8s-crd-expl/clientset/v1alpha1"
-	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/kubernetes/scheme"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 )
 
-var gvr = schema.GroupVersionResource{
-	Group:    "",
-	Version:  "v1",
-	Resource: "pods",
-}
+// var gvr = schema.GroupVersionResource{
+// 	Group:    "",
+// 	Version:  "v1",
+// 	Resource: "pods",
+// }
 
 func Get_k8s_config() (*rest.Config, error) {
 	userHomeDir, err := os.UserHomeDir()
@@ -39,6 +38,9 @@ func Get_k8s_config() (*rest.Config, error) {
 
 func main() {
 	dynamic_config, err := Get_k8s_config()
+	if err != nil {
+		panic(err)
+	}
 	clientset, err := clientV1alpha1.NewforConfig(dynamic_config)
 	if err != nil {
 		panic(err)
@@ -47,9 +49,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(myprojectsList)
-	// for _, mypro := range myprojectsList {
-	// 	fmt.Println(mypro)
-	// }
+	fmt.Printf("projects found: %+v\n", myprojectsList)
 
 }
