@@ -22,7 +22,7 @@ func WatchResources(clientSet client_v1alpha1.MyProjectV1alphainterface) cache.S
 				return clientSet.MyProjects("default").Watch(lo)
 			},
 		},
-		&v1alpha1.Project{},
+		&v1alpha1.MyProject{},
 		3*time.Minute,
 		cache.ResourceEventHandlerFuncs{},
 	)
