@@ -6,6 +6,7 @@ import (
 
 	"github.com/RajaSureshAditya/k8s-crd-expl/apis/types/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/kubernetes/scheme"
 	"k8s.io/client-go/rest"
 )
@@ -68,12 +69,13 @@ func (c *MyProjectClient) Create(MyProject *v1alpha1.MyProject) (*v1alpha1.MyPro
 	return &result, err
 }
 
-// func (c *projectClient) Watch(opts metav1.ListOptions) (watch.Interface, error) {
-// 	opts.Watch = true
-// 	return c.restClient.
-// 		Get().
-// 		Namespace(c.ns).
-// 		Resource("projects").
-// 		VersionedParams(&opts, scheme.ParameterCodec).
-// 		Watch()
-// }
+func (c *MyProjectClient) Watch(opts metav1.ListOptions) (watch.Interface, error) {
+	opts.Watch = true
+	ctx := context.Background()
+	return c.restClient.
+		Get().
+		Namespace(c.ns).
+		Resource("projects").
+		VersionedParams(&opts, scheme.ParameterCodec).
+		Watch(ctx)
+}

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"time"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
@@ -58,5 +59,12 @@ func main() {
 	}
 	// fmt.Printf("projects found: %+v\n", mypname)
 	fmt.Printf("projects found: %+v\n", myprojectsList)
+	store := WatchResources(clientset)
 
+	for {
+		projectsFromStore := store.List()
+		fmt.Printf("project in store: %d\n", len(projectsFromStore))
+
+		time.Sleep(2 * time.Second)
+	}
 }
