@@ -17,10 +17,12 @@ type MyProjectList struct {
 	Items            []MyProject `json:"items"`
 }
 type MyProjectSpec struct {
-	AppId        string `json:"appId"`
-	Language     string `json:"language"`
-	Os           string `json:"os"`
-	InstanceSize string `json:"instanceSize"`
+	AppId           string `json:"appId"`
+	EnvironmentType string `json:"environmentType"`
+	Language        string `json:"language"`
+	Os              string `json:"os"`
+	InstanceSize    string `json:"instanceSize"`
+	Replicas        int    `json:"replicas"`
 }
 type MyProjectStatus struct {
 	State   string `json:"state,omitempty"`

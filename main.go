@@ -32,23 +32,31 @@ func Get_k8s_config() (*rest.Config, error) {
 		fmt.Printf("error getting Kubernetes config: %v\n", err)
 		os.Exit(1)
 	}
-	v1alpha1.AddToScheme(scheme.Scheme)
+	kubeConfig_cfg.GroupVersion = &v1alpha1.SchemeGroupVersion
 	return kubeConfig_cfg, nil
 }
+
+// func init() {
+// 	v1alpha1.AddToScheme(scheme.Scheme)
+// }
 
 func main() {
 	dynamic_config, err := Get_k8s_config()
 	if err != nil {
 		panic(err)
 	}
+	// v1alpha1.AddToScheme(scheme.Scheme)
 	clientset, err := clientV1alpha1.NewforConfig(dynamic_config)
+	v1alpha1.AddToScheme(scheme.Scheme)
 	if err != nil {
 		panic(err)
 	}
 	myprojectsList, err := clientset.MyProjects("default").List(metav1.ListOptions{})
+	// mypname, err := clientset.MyProjects("default").Get("test-dotnet-app", metav1.GetOptions{})
 	if err != nil {
 		panic(err)
 	}
+	// fmt.Printf("projects found: %+v\n", mypname)
 	fmt.Printf("projects found: %+v\n", myprojectsList)
 
 }

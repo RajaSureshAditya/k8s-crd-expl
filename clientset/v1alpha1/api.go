@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/runtime/serializer"
 	"k8s.io/client-go/kubernetes/scheme"
 	"k8s.io/client-go/rest"
 )
@@ -22,7 +23,8 @@ func NewforConfig(c *rest.Config) (*MyProjectV1alphaclient, error) {
 	kubeConfig_cfg.ContentConfig.GroupVersion = &schema.GroupVersion{Group: "contoso.com", Version: "v1alpha1"}
 	kubeConfig_cfg.APIPath = "/apis"
 	// kubeConfig_cfg.NegotiatedSerializer = serializer.NewCodecFactory(scheme.Scheme)
-	kubeConfig_cfg.NegotiatedSerializer = scheme.Codecs.WithoutConversion()
+	kubeConfig_cfg.NegotiatedSerializer = serializer.WithoutConversionCodecFactory{CodecFactory: scheme.Codecs}
+	// kubeConfig_cfg.NegotiatedSerializer = scheme.Codecs.WithoutConversion()
 	kubeConfig_cfg.UserAgent = rest.DefaultKubernetesUserAgent()
 	MyProjectclientset, err := rest.RESTClientFor(&kubeConfig_cfg)
 	// MyProjectclientset, err := rest.UnversionedRESTClientFor(&kubeConfig_cfg)

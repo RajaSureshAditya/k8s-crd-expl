@@ -24,8 +24,8 @@ type MyProjectClient struct {
 
 func (c *MyProjectClient) List(opts metav1.ListOptions) (*v1alpha1.MyProjectList, error) {
 	result := v1alpha1.MyProjectList{}
-	ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(300*time.Second))
-	defer cancel()
+	ctx := context.Background()
+	// defer cancel()
 	err := c.restClient.
 		Get().
 		Namespace(c.ns).
